@@ -17,8 +17,10 @@
 */
 
 import { addMessagePopoverButton, removeMessagePopoverButton } from "@api/MessagePopover";
+import { showNotification } from "@api/Notifications";
 import { definePluginSettings } from "@api/Settings";
 import { ImageIcon } from "@components/Icons";
+import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 
 import {
@@ -27,6 +29,28 @@ import {
     renderPopoverButton,
 } from "./features/mediaFavorites";
 import { cancelActivePurge, messageContextMenuPatch as quickDeleteContextMenuPatch } from "./features/quickDelete";
+import currentVersion from "./version.json";
+
+const logger = new Logger("Toolkit");
+
+const REMOTE_VERSION_URL = "https://raw.githubusercontent.com/offxeliko/vencord-toolkit/main/version.json";
+
+async function checkForUpdates() {
+    try {
+        const res = await fetch(REMOTE_VERSION_URL, { cache: "no-store" });
+        const { version } = await res.json();
+
+        if (version && version !== currentVersion.version) {
+            showNotification({
+                title: "Toolkit Update Available",
+                body: `New version ${version} is available (current: ${currentVersion.version}). Run git pull in the toolkit folder and rebuild.`,
+                permanent: false,
+            });
+        }
+    } catch (err) {
+        logger.warn("Failed to check for updates", err);
+    }
+}
 
 const settings = definePluginSettings({
     mediaFavorites: {
@@ -67,6 +91,8 @@ export default definePlugin({
             if (!settings.store.mediaFavorites) return null;
             return renderPopoverButton(msg);
         }, ImageIcon);
+
+        checkForUpdates();
     },
 
     stop() {
