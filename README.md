@@ -17,29 +17,39 @@ Features adaptive rate limiting, ESC to cancel mid-purge, and a confirmation dia
 
 > Only deletes YOUR messages. Other people's messages are never touched.
 
+## Requirements
+
+This plugin requires **Vencord built from source**. If you installed Vencord via the installer and don't have a source folder, follow the [Vencord build guide](https://docs.vencord.dev/installing/) first:
+
+```bash
+git clone https://github.com/Vendicated/Vencord && cd Vencord && pnpm install
+```
+
+If you already have Vencord from source, you're good to go.
+
 ## Installation
 
-**One command** (run from Vencord root):
+1. Open a terminal in your **Vencord source folder** (the one with `package.json`)
+2. Run:
 
 ```bash
 git clone https://github.com/offxeliko/vencord-toolkit.git src/userplugins/toolkit && pnpm build
 ```
 
-Or use the install script:
+3. Restart Discord
+4. Go to **User Settings > Vencord > Plugins**, find **Toolkit** and enable it
 
-```bash
-curl -sL https://raw.githubusercontent.com/offxeliko/vencord-toolkit/main/install.sh | bash
-```
-
-Restart Discord, then enable **Toolkit** in User Settings > Vencord > Plugins.
+> **How to find your Vencord folder:** it's the folder where you originally cloned and built Vencord. It contains `package.json`, `src/`, and `dist/` directories.
 
 ## Update
+
+The plugin checks for updates automatically and will notify you when a new version is available. To update:
 
 ```bash
 cd src/userplugins/toolkit && git pull && cd ../../ && pnpm build
 ```
 
-Or re-run the install script — it detects existing installs and updates automatically.
+Then restart Discord.
 
 ## Settings
 
