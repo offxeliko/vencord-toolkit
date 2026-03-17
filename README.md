@@ -19,11 +19,27 @@ Features adaptive rate limiting, ESC to cancel mid-purge, and a confirmation dia
 
 ## Installation
 
+**One command** (run from Vencord root):
+
 ```bash
-cd src/userplugins && git clone https://github.com/offxeliko/vencord-toolkit.git toolkit
+git clone https://github.com/offxeliko/vencord-toolkit.git src/userplugins/toolkit && pnpm build
 ```
 
-Then rebuild Vencord.
+Or use the install script:
+
+```bash
+curl -sL https://raw.githubusercontent.com/offxeliko/vencord-toolkit/main/install.sh | bash
+```
+
+Restart Discord, then enable **Toolkit** in User Settings > Vencord > Plugins.
+
+## Update
+
+```bash
+cd src/userplugins/toolkit && git pull && cd ../../ && pnpm build
+```
+
+Or re-run the install script — it detects existing installs and updates automatically.
 
 ## Settings
 
